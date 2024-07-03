@@ -8,9 +8,10 @@ import passport from 'passport';
 import session from 'express-session';
 import bcrypt from 'bcrypt';
 import LocalStorage from 'passport-local';
-import userRouter from './routes/user.js';
 import 'dotenv/config';
 import User from './models/User.js';
+import userRouter from './routes/user.js';
+import messageRouter from './routes/message.js';
 
 const app = express();
 const server = createServer(app);
@@ -86,6 +87,7 @@ passport.deserializeUser(async (id, done) => {
 })
 
 app.use('/', userRouter);
+app.use('/', messageRouter);
 
 server.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);

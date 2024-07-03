@@ -4,6 +4,8 @@ import asyncHandler from 'express-async-handler';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
+// @desc    sign up new user
+// route    POST /sign-up
 const sign_up = asyncHandler(async (req, res, next) => {
     const existinUser = await User.findOne({ username: req.body.username });
 
@@ -29,6 +31,8 @@ const sign_up = asyncHandler(async (req, res, next) => {
     }
 });
 
+// @desc    login user
+// route    POST /login
 const login = [
     passport.authenticate('local', { session: false }),
     asyncHandler(async (req, res, next) => {
@@ -49,6 +53,8 @@ const login = [
     }),
 ];
 
+// @desc    logout current user
+// route    GET /logout
 const logout = asyncHandler(async (req, res, next) => {
     req.logout((err) => {
         if (err) {
@@ -61,6 +67,8 @@ const logout = asyncHandler(async (req, res, next) => {
     });
 });
 
+// @desc    get user profile
+// route    GET /profile/:userId
 const get_profile = asyncHandler(async (req, res, next) => {
     const { userId } = req.params;
     const user = await User.findById(userId).select('-password');
@@ -72,6 +80,8 @@ const get_profile = asyncHandler(async (req, res, next) => {
     res.status(200).json({ message: 'Get profile', user});
 });
 
+// @desc    update current user profile
+// route    PUT /profile/:userId
 const update_profile = asyncHandler(async (req, res, next) => {
     const { userId } = req.params;
 
