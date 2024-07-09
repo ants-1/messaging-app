@@ -1,16 +1,19 @@
-import { useEffect } from 'react';
-import io from 'socket.io-client';
+import { useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import io from "socket.io-client";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 
 function App() {
   useEffect(() => {
-    const socket = io('http://localhost:3000');
+    const socket = io("http://localhost:3000");
 
-    socket.on('connect', () => {
-      console.log('Connected to server');
+    socket.on("connect", () => {
+      console.log("Connected to server");
     });
 
-    socket.on('disconnect', () => {
-      console.log('Disconnected from server');
+    socket.on("disconnect", () => {
+      console.log("Disconnected from server");
     });
 
     return () => {
@@ -19,8 +22,13 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <h1>Hello from React</h1>
+    <div className="bg-gray-900">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/sign-up" element={<SignUp />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
