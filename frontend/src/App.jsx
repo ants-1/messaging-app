@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import io from "socket.io-client";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import Chat from "./pages/Chat";
+import { AuthProvider } from "./components/AuthContext";
 
 function App() {
   useEffect(() => {
@@ -23,12 +25,15 @@ function App() {
 
   return (
     <div className="bg-gray-900">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/sign-up" element={<SignUp />} />
-        </Routes>
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/" element={<Chat />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </div>
   );
 }
