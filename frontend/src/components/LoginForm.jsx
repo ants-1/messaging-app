@@ -80,7 +80,7 @@ function LoginForm() {
       {loginError && <p className="text-red-500 text-sm">{loginError}</p>}
       <button
         type="submit"
-        className="rounded-md h-12 bg-indigo-600  mb-5 font-semibold"
+        className="rounded-md h-12 bg-indigo-600  mb-5 font-semibold hover:bg-indigo-700"
       >
         Login
       </button>

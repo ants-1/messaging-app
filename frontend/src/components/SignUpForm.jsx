@@ -124,7 +124,7 @@ function SignUpForm() {
       {signUpError && <p className="text-red-500 text-sm">{signUpError}</p>}
       <button
         type="submit"
-        className="rounded-md h-12 bg-indigo-600  mb-5 font-semibold"
+        className="rounded-md h-12 bg-indigo-600  mb-5 font-semibold hover:bg-indigo-700"
       >
         Sign Up
       </button>
