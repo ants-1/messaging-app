@@ -46,7 +46,6 @@ const add_message = asyncHandler(async (req, res, next) => {
     }
 
     const newMessage = new Message({
-        _id: req.body._id,
         sender: req.body.sender,
         content: req.body.content,
         chat: req.body.chatId,

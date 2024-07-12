@@ -12,6 +12,7 @@ import 'dotenv/config';
 import User from './models/User.js';
 import userRouter from './routes/user.js';
 import messageRouter from './routes/message.js';
+import chatRouter from './routes/chat.js';
 
 const app = express();
 const server = createServer(app);
@@ -88,6 +89,7 @@ passport.deserializeUser(async (id, done) => {
 
 app.use('/', userRouter);
 app.use('/', messageRouter);
+app.use('/', chatRouter);
 
 server.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
