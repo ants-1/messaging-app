@@ -1,6 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "./AuthContext";
 
 function Sidebar() {
+  const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handlelogout = () => {
+    logout();
+    navigate("/");
+  }
+
   return (
     <div>
       <aside className="w-16 bg-gray-800 h-screen">
@@ -24,13 +34,13 @@ function Sidebar() {
             </Link>
           </li>
           <li className="text-gray-500 hover:cursor-pointer hover:bg-gray-900 w-full">
-            <Link to="/logout">
+            <div onClick={handlelogout}>
               <img
                 src="./logout-icon.png"
                 alt=""
                 className="w-full h-16 p-3.5"
               />
-            </Link>
+            </div>
           </li>
         </ul>
       </aside>

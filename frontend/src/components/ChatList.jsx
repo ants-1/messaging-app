@@ -1,27 +1,7 @@
+/* eslint-disable react/prop-types */
 import ChatCard from "./ChatCard";
 
-function ChatList() {
-  const dummyChatUsers = [
-    {
-      _id: 1,
-      username: "Max",
-      status: true,
-      avater_url: "./default-avater.png",
-    },
-    {
-      _id: 2,
-      username: "Jim",
-      status: false,
-      avater_url: "./default-avater.png",
-    },
-    {
-      _id: 1,
-      username: "Dwight",
-      status: false,
-      avater_url: "./default-avater.png",
-    },
-  ];
-
+function ChatList({ chats, handleGetMessages }) {
   return (
     <div className="sm:w-96 w-72 bg-gray-700 h-screen border-r border-gray-600">
       <div className="flex items-center justify-between p-3 border-b h-[6vh] min-h-10">
@@ -33,9 +13,21 @@ function ChatList() {
         />
       </div>
       <div className="flex flex-col w-full max-h-[94vh] overflow-y-scroll">
-        {dummyChatUsers.map(user => (
-            <ChatCard user={user} key={user._id} />
-        ))}
+        {chats.length > 0 ? (
+          chats.map((chat) => (
+            <ChatCard
+              chat={chat}
+              key={chat._id}
+              onClick={() => {
+                handleGetMessages(chat._id);
+              }}
+            />
+          ))
+        ) : (
+          <p className="text-white text-center mt-3 bg-gray-700">
+            No chats available
+          </p>
+        )}
       </div>
     </div>
   );

@@ -27,7 +27,7 @@ function LoginForm() {
       if (response.ok) {
         console.log("Login successful", result);
         login(result.token);
-        navigate("/");
+        navigate("/chats");
       } else {
         console.error("Login failed", result);
         setLoginError(result.message || "Login failed");

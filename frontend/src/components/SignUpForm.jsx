@@ -130,7 +130,7 @@ function SignUpForm() {
       </button>
       <p className="font-thin">
         Already have an account?{" "}
-        <Link to="/login" className="text-blue-600 underline font-semibold">
+        <Link to="/" className="text-blue-600 underline font-semibold">
           Login
         </Link>
         .
