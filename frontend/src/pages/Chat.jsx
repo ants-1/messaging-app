@@ -8,9 +8,9 @@ function Chat() {
   const { user } = useContext(AuthContext);
   const [chats, setChats] = useState([]);
   const [messages, setMessages] = useState([]);
+  const [currentChatId, setCurrentChatId] = useState("");
 
   function handleGetMessages(chatId) {
-    console.log("Clicked");
     if (user) {
       const fetchData = async () => {
         try {
@@ -27,6 +27,7 @@ function Chat() {
           const data = await response.json();
           console.log(data);
           setMessages(data);
+          setCurrentChatId(chatId);
         } catch (error) {
           console.log("Error fetching data", error);
         }
@@ -64,7 +65,7 @@ function Chat() {
       <Sidebar />
       <div className="flex h-screen text-white w-full">
         <ChatList chats={chats} handleGetMessages={handleGetMessages}/>
-        <ChatScreen messages={messages} />
+        <ChatScreen currentChatId={currentChatId} messages={messages} />
       </div>
     </div>
   );
