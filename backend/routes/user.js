@@ -13,4 +13,6 @@ router.get('/profile/:userId', userController.get_profile);
 
 router.put('/profile/:userId', userController.update_profile);
 
+router.get('/users', userController.get_users);
+
 export default router;

@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
 
 function Sidebar() {
-  const { logout } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handlelogout = () => {
@@ -18,16 +18,16 @@ function Sidebar() {
           <li className="text-white hover:cursor-pointer hover:bg-gray-900 w-full">
             <Link to="/chats">
               <img
-                src="./chat-icon-normal.png"
+                src="/chat-icon-normal.png"
                 alt=""
                 className="w-full h-16 p-3.5"
               />
             </Link>
           </li>
           <li className="text-gray-500 hover:cursor-pointer hover:bg-gray-900 w-full">
-            <Link to="/profile">
+            <Link to={`/profile/${user.userId}`}>
               <img
-                src="./profile-icon.png"
+                src="/profile-icon.png"
                 alt=""
                 className="w-full h-16 p-3.5"
               />
@@ -36,7 +36,7 @@ function Sidebar() {
           <li className="text-gray-500 hover:cursor-pointer hover:bg-gray-900 w-full">
             <div onClick={handlelogout}>
               <img
-                src="./logout-icon.png"
+                src="/logout-icon.png"
                 alt=""
                 className="w-full h-16 p-3.5"
               />

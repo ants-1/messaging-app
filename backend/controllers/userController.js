@@ -82,7 +82,7 @@ const get_profile = [
       return res.status(404).json({ message: "Username not found." });
     }
 
-    res.status(200).json({ message: "Get profile", user });
+    res.status(200).json({ user });
   }),
 ];
 
@@ -112,10 +112,23 @@ const update_profile = [
   }),
 ];
 
+// @desc  get all users 
+// route  GET /users
+const get_users = asyncHandler(async (req, res, next) => {
+  const users = await User.find().exec();
+
+  if (!users) {
+    return res.status(404).json({ message: "No users found"});
+  }
+
+  res.status(200).json(users);
+});
+
 export default {
   sign_up,
   login,
   logout,
   get_profile,
   update_profile,
+  get_users,
 };

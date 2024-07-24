@@ -65,8 +65,14 @@ const add_chat = [
       messages: req.body.messages,
     });
 
+    const existingChat = await Chat.find({ name: newChat.name }).exec();
+
     if (!newChat) {
       return res.status(404).json({ error: "Error while adding new chat" });
+    }
+
+    if (existingChat) {
+      return res.status(404).json({ error: `Chat name: ${existingChat.name} already exist`});
     }
 
     await newChat.save();

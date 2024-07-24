@@ -1,41 +1,61 @@
-// import { useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import io from "socket.io-client";
+import { useContext, useEffect } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import io from "socket.io-client";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Chat from "./pages/Chat";
-import { AuthProvider } from "./components/AuthContext";
 import Profile from "./pages/Profile";
+import { AuthContext } from "./components/AuthContext";
+import ChatForm from "./components/ChatForm";
 
 function App() {
-  // useEffect(() => {
-  //   const socket = io("http://localhost:3000");
+  const { user } = useContext(AuthContext);
 
-  //   socket.on("connect", () => {
-  //     console.log("Connected to server");
-  //   });
+  useEffect(() => {
+    const socket = io("http://localhost:3000");
 
-  //   socket.on("disconnect", () => {
-  //     console.log("Disconnected from server");
-  //   });
+    socket.on("connect", () => {
+      console.log("Connected to server");
+    });
 
-  //   return () => {
-  //     socket.disconnect();
-  //   };
-  // }, []);
+    socket.on("disconnect", () => {
+      console.log("Disconnected from server");
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   return (
     <div className="bg-gray-900">
-      <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route index path="/" element={<Login />} />
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/chats" element={<Chat />} />
-            <Route path="/profile" element={<Profile />} />
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
+      <Routes>
+        <Route
+          index
+          path="/"
+          element={user ? <Navigate to="/chats" /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/sign-up"
+          element={user ? <Navigate to="/chats" /> : <SignUp />}
+        />
+        <Route
+          path="/login"
+          element={user ? <Navigate to="/chats" /> : <Login />}
+        />
+        <Route
+          path="/chats"
+          element={user ? <Chat /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/profile/:userId"
+          element={user ? <Profile userId={user.userId} /> : <Navigate to="/login" />}
+        />
+        <Route 
+          path="/add-chat"
+          element={user ? <ChatForm /> : <Navigate to="/login" />}
+        />
+      </Routes>
     </div>
   );
 }
