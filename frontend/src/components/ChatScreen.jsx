@@ -6,10 +6,14 @@ function ChatScreen({ currentChatId, messages }) {
     <div className="flex flex-col w-full">
       <div className="w-full h-[92vh] flex flex-col p-10 items-end overflow-auto">
         {messages.map((message) => (
-          <MessageCard message={message} key={message._id} />
+          <MessageCard
+            message={message}
+            currentChatId={currentChatId}
+            key={message._id}
+          />
         ))}
       </div>
-      <MessageForm currentChatId={currentChatId}/>
+      <MessageForm currentChatId={currentChatId} />
     </div>
   );
 }
